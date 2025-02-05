@@ -45,8 +45,8 @@ const App = () => {
       const lastIndex = Alltask.length - 1;
       gsap.fromTo(
         containerRefs.current[lastIndex],
-        { scale: 0.3 },
-        { scale: 1, ease: "elastic.out", duration: 1 }
+        { scale: 0.3 , opacity:0 },
+        { scale: 1,opacity:1, ease: "power3.out", duration: .5 }
       );
 
     }
