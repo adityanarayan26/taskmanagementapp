@@ -2,11 +2,12 @@ import { create } from 'zustand';
 import { axiosInstance } from '../utils/axiosInstance';
 import toast from 'react-hot-toast';
 
-const useStore = create((set) => ({
+const useStore = create((set, get) => ({
   todo: '',
   setTodo: (todo) => set({ todo }),
   isLoading: false,
-  isComplete: false,
+  DisplayUpdate: [],
+  setDisplayUpdate: (DisplayUpdate) => set({ DisplayUpdate }),
   Alltask: [],
   AddTask: async (task) => {
     set({ isLoading: true });
@@ -63,10 +64,11 @@ const useStore = create((set) => ({
     }
   },
   UpdateTask: async (todo) => {
+    const { DisplayUpdate } = get();
     try {
       const resp = await axiosInstance.put(`/update/${todo._id}`, {
-        title: todo.title,
-        isComplete: todo.completed,
+        title: DisplayUpdate.name || todo.title,
+        completed: DisplayUpdate.completed || false,
       });
       if (resp.status === 200) {
         set((state) => ({
@@ -75,16 +77,16 @@ const useStore = create((set) => ({
           ),
         }));
         set({ isComplete: true });
-        toast.success('Task Completed');
-      } else {
-        console.error('Failed to update the task');
-        toast.error('Error Occurred');
-        set({ isComplete: false });
+        toast.success('updated successfully');
       }
+      set({ isComplete: false });
     } catch (error) {
       console.log(error);
       toast.error('Error Occurred');
       set({ isComplete: false });
+    }
+    finally{
+      set({isComplete:false})
     }
   },
 }));

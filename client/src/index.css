@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('../fonts/Syne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    
+  }
+  
+  body {
+    font-family: 'MyCustomFont';
+    letter-spacing: 0.8px;
+  }
