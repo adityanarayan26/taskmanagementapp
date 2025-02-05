@@ -10,13 +10,13 @@ config()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin:process.env.FRONTEND_URI,
   credentials: true
 }));
 // Routes
 app.use('/api', todoRoute);
 
 app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
+  console.log(`'Server is running on ${process.env.FRONTEND_URI}`);
   Connectdb();
 });

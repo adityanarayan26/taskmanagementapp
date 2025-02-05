@@ -1,0 +1,1 @@
+export const backendURI = import.meta.env.VITE_URI;
